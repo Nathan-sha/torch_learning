@@ -1,0 +1,13 @@
+{
+  "exp_name": "smoke_dl_regression",
+  "device": "cpu",
+  "seed": 42,
+  "resume": "",
+  "epochs": 1,
+  "batch_size": 32,
+  "lr": 0.001,
+  "hidden_dim": 64,
+  "num_samples": 2048,
+  "input_dim": 2,
+  "log_every": 1
+}

@@ -1,0 +1,20 @@
+{
+  "exp_name": "smoke_dqn_regression",
+  "device": "cpu",
+  "seed": 42,
+  "resume": "",
+  "env": "CartPole-v1",
+  "total_steps": 500,
+  "batch_size": 64,
+  "buffer_size": 50000,
+  "warmup_steps": 1000,
+  "gamma": 0.99,
+  "lr": 0.001,
+  "target_update_interval": 250,
+  "train_interval": 1,
+  "hidden_dim": 128,
+  "epsilon_start": 1.0,
+  "epsilon_end": 0.05,
+  "epsilon_decay_steps": 10000,
+  "log_interval": 250
+}

@@ -1,0 +1,14 @@
+{"step": 1, "episode/return": 30.0, "episode/length": 30.0, "exploration/epsilon": 0.99715}
+{"step": 2, "episode/return": 20.0, "episode/length": 20.0, "exploration/epsilon": 0.99525}
+{"step": 3, "episode/return": 20.0, "episode/length": 20.0, "exploration/epsilon": 0.99335}
+{"step": 4, "episode/return": 21.0, "episode/length": 21.0, "exploration/epsilon": 0.991355}
+{"step": 5, "episode/return": 51.0, "episode/length": 51.0, "exploration/epsilon": 0.98651}
+{"step": 6, "episode/return": 19.0, "episode/length": 19.0, "exploration/epsilon": 0.984705}
+{"step": 7, "episode/return": 77.0, "episode/length": 77.0, "exploration/epsilon": 0.97739}
+{"step": 8, "episode/return": 31.0, "episode/length": 31.0, "exploration/epsilon": 0.974445}
+{"step": 9, "episode/return": 68.0, "episode/length": 68.0, "exploration/epsilon": 0.967985}
+{"step": 10, "episode/return": 31.0, "episode/length": 31.0, "exploration/epsilon": 0.96504}
+{"step": 11, "episode/return": 29.0, "episode/length": 29.0, "exploration/epsilon": 0.9622850000000001}
+{"step": 12, "episode/return": 19.0, "episode/length": 19.0, "exploration/epsilon": 0.96048}
+{"step": 13, "episode/return": 19.0, "episode/length": 19.0, "exploration/epsilon": 0.958675}
+{"step": 14, "episode/return": 52.0, "episode/length": 52.0, "exploration/epsilon": 0.953735}

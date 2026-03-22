@@ -1,0 +1,9 @@
+{
+  "exp_name": "smoke_sb3",
+  "device": "auto",
+  "seed": 42,
+  "resume": "",
+  "env": "CartPole-v1",
+  "algo": "ppo",
+  "total_steps": 2000
+}
