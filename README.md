@@ -31,6 +31,8 @@ conda activate env_isaaclab
 python -m src.dl.train_classifier --epochs 20 --batch-size 64 --device cuda
 python -m src.dl.train_classifier --dataset mnist --epochs 5 --batch-size 128 --device cuda
 python -m src.rl.train_dqn --env CartPole-v1 --total-steps 20000 --device cuda
+python -m src.rl.train_vpg --env CartPole-v1 --epochs 50 --steps-per-epoch 2000 --device cpu
+python -m src.rl.train_ppo_clip --env CartPole-v1 --epochs 50 --steps-per-epoch 2000 --device cpu
 python -m src.rl.train_sb3 --env CartPole-v1 --algo ppo --total-steps 50000 --device cpu
 ```
 
@@ -62,8 +64,28 @@ outputs/<task>/<exp_name>/<timestamp>/
   - 一个支持合成二维分类数据和 `MNIST` 的 MLP 训练模板
 - `src.rl.train_dqn`
   - 一个尽量简洁、便于修改的原生 PyTorch DQN 模板
+- `src.rl.train_vpg`
+  - 一个带 value baseline 的原生 VPG 模板，适合 on-policy 小实验
+- `src.rl.train_ppo_clip`
+  - 一个原生 PPO-Clip 模板，包含 GAE、clip objective 和多轮更新
 - `src.rl.train_sb3`
   - 一个快速 RL baseline 入口，封装 `stable-baselines3`
+
+## 当前 RL 范围
+
+- `DQN`
+  - 适合离散动作空间的小实验
+- `VPG`
+  - 当前实现为离散动作空间、一维 Box 观测空间的 on-policy 版本
+- `PPO-Clip`
+  - 当前实现为离散动作空间、一维 Box 观测空间的 on-policy 版本
+
+示例：
+
+```powershell
+python -m src.rl.train_vpg --env CartPole-v1 --epochs 20 --steps-per-epoch 2000 --device cpu
+python -m src.rl.train_ppo_clip --env CartPole-v1 --epochs 20 --steps-per-epoch 2000 --device cpu
+```
 
 ## 扩展建议
 

@@ -1,0 +1,22 @@
+{
+  "exp_name": "smoke_ppo_clip",
+  "device": "cpu",
+  "seed": 42,
+  "resume": "",
+  "env": "CartPole-v1",
+  "epochs": 2,
+  "steps_per_epoch": 512,
+  "gamma": 0.99,
+  "lam": 0.95,
+  "hidden_dim": 128,
+  "policy_lr": 0.0003,
+  "value_lr": 0.001,
+  "clip_ratio": 0.2,
+  "train_iters": 10,
+  "batch_size": 128,
+  "target_kl": 0.015,
+  "entropy_coef": 0.0,
+  "value_coef": 0.5,
+  "max_grad_norm": 0.5,
+  "log_interval": 1
+}
