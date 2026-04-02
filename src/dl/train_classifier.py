@@ -17,6 +17,7 @@ from src.common.cli import add_common_args
 from src.common.device import resolve_device
 from src.common.logger import ExperimentLogger
 from src.common.paths import make_run_dir, save_args
+from src.common.plotting import save_run_metrics_plots
 from src.common.seed import set_seed
 from src.dl.data.synthetic import make_classification_dataset
 from src.dl.data.vision import make_mnist_datasets
@@ -66,6 +67,18 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device, criteri
 
 
 def build_datasets(args: argparse.Namespace) -> tuple[Dataset, Dataset, int, int]:
+    """Construct train/val datasets and return shapes needed by the MLP.
+
+    Args:
+        args: Parsed CLI namespace; ``dataset`` must be ``synthetic`` or ``mnist``.
+
+    Returns:
+        ``(train_set, val_set, input_dim, num_classes)``. For ``synthetic``, the full
+        dataset is randomly split 80/20 (seeded).
+        For ``mnist``, uses the official
+        train/test split. ``input_dim`` is the flattened feature size; ``num_classes``
+        is the number of target classes.
+    """
     if args.dataset == "synthetic":
         dataset = make_classification_dataset(
             num_samples=args.num_samples,
@@ -183,6 +196,9 @@ def main() -> None:
             )
 
     logger.close()
+    plot_paths = save_run_metrics_plots(run_dir)
+    if plot_paths:
+        print(f"[DL] plots saved under {plot_paths[0].parent}")
     print(f"[DL] done. output_dir={run_dir}")
 
 
