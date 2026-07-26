@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import numpy as np
 import torch
-from gymnasium.spaces import Box, Discrete
+from gymnasium import spaces
 from torch import nn
 from torch.distributions import Categorical
 
 
 def discount_cumsum(x: np.ndarray, discount: float) -> np.ndarray:
+    # 给定一个序列，返回该序列按照discount比率衰减后的序列值
     result = np.zeros_like(x, dtype=np.float32)
     running = 0.0
     for idx in reversed(range(len(x))):
@@ -35,6 +36,7 @@ class ActorCritic(nn.Module):
         )
 
     def distribution(self, obs: torch.Tensor) -> Categorical:
+        # 离散动作：网络输出每个动作的logit（未归一化分数），Categorical在内部将其转为概率分布
         logits = self.actor(obs)
         return Categorical(logits=logits)
 
@@ -124,9 +126,9 @@ def check_supported_spaces(env) -> tuple[int, int]:
     obs_space = env.observation_space
     act_space = env.action_space
 
-    if not isinstance(obs_space, Box) or len(obs_space.shape) != 1:
+    if not isinstance(obs_space, spaces.Box) or len(obs_space.shape) != 1:
         raise ValueError("当前 on-policy 模板仅支持一维 Box 观测空间。")
-    if not isinstance(act_space, Discrete):
+    if not isinstance(act_space, spaces.Discrete):
         raise ValueError("当前 on-policy 模板仅支持 Discrete 动作空间。")
 
     return obs_space.shape[0], act_space.n

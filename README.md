@@ -5,36 +5,43 @@
 从手写数字识别开始
 注意不要一次性输出太多东西，不要直接输出答案，引导我学习python 神经网络编程
 
-这个项目用于在当前 `env_isaaclab` 环境中快速开展深度学习（DL）和强化学习（RL）小实验。
+这个项目用于在当前 `env_isaaclab` 环境中快速开展深度学习（DL）、强化学习（RL）和Transformer模型的小实验。
 
 ## 目标
 
 - 用尽量少的样板代码启动新实验
 - 统一管理随机种子、设备、日志、checkpoint 和输出目录
 - 同时支持原生 PyTorch 的 DL/RL 模板，以及 `stable-baselines3` 的 RL baseline
+- 提供完整的 Transformer 模型实现，便于学习和实验
 
 ## 目录结构
 
 ```text
-torch/
-  env.md
-  outputs/
-  requirements_note.md
-  scripts/
-    run_dl.ps1
-    run_rl.ps1
-  src/
-    common/
-    dl/
-    rl/
+torch_learning/
+  data/               # 数据集存储目录
+  leetcode/           # LeetCode 解题代码
+  outputs/            # 实验输出目录
+  scripts/            # 运行脚本
+  src/                # 源代码
+    common/           # 公共工具模块
+    dl/               # 深度学习模块
+    rl/               # 强化学习模块
+    test/             # 测试代码
+    transformer/      # Transformer 模型实现
+  README.md           # 项目说明文档
+  env.md              # 环境配置说明
+  requirements_note.md # 依赖说明
 ```
 
 ## 快速开始
 
 ```powershell
 conda activate env_isaaclab
+# 深度学习实验
 python -m src.dl.train_classifier --epochs 20 --batch-size 64 --device cuda
 python -m src.dl.train_classifier --dataset mnist --epochs 5 --batch-size 128 --device cuda
+
+# 强化学习实验
 python -m src.rl.train_dqn --env CartPole-v1 --total-steps 20000 --device cuda
 python -m src.rl.train_vpg --env CartPole-v1 --epochs 50 --steps-per-epoch 2000 --device cpu
 python -m src.rl.train_ppo_clip --env CartPole-v1 --epochs 50 --steps-per-epoch 2000 --device cpu
@@ -65,8 +72,11 @@ outputs/<task>/<exp_name>/<timestamp>/
 
 ## 当前内置实验
 
+### 深度学习（DL）
 - `src.dl.train_classifier`
   - 一个支持合成二维分类数据和 `MNIST` 的 MLP 训练模板
+
+### 强化学习（RL）
 - `src.rl.train_dqn`
   - 一个尽量简洁、便于修改的原生 PyTorch DQN 模板
 - `src.rl.train_vpg`
@@ -75,6 +85,14 @@ outputs/<task>/<exp_name>/<timestamp>/
   - 一个原生 PPO-Clip 模板，包含 GAE、clip objective 和多轮更新
 - `src.rl.train_sb3`
   - 一个快速 RL baseline 入口，封装 `stable-baselines3`
+
+### Transformer 模型
+- `src.transformer`
+  - 完整的 Transformer 模型实现，包括：
+    - 词嵌入和位置编码
+    - 自注意力、掩码注意力、多头注意力
+    - 编码器和解码器结构
+    - 前馈网络和层归一化
 
 ## 当前 RL 范围
 
@@ -92,12 +110,6 @@ python -m src.rl.train_vpg --env CartPole-v1 --epochs 20 --steps-per-epoch 2000 
 python -m src.rl.train_ppo_clip --env CartPole-v1 --epochs 20 --steps-per-epoch 2000 --device cpu
 ```
 
-## 扩展建议
-
-- 新增 DL 实验时，复用 `src/common/` 中的公共能力，替换数据集与模型即可
-- 新增 RL 实验时，可继续复用 `src/rl/envs/make_env.py`
-- 如果后续要接入 `Isaac Lab`，建议在 `src/rl/envs/` 下新增独立环境工厂而不是修改现有轻量流程
-
 ## 当前可用 DL 数据集
 
 - `synthetic`
@@ -110,3 +122,39 @@ python -m src.rl.train_ppo_clip --env CartPole-v1 --epochs 20 --steps-per-epoch 
 ```powershell
 python -m src.dl.train_classifier --dataset mnist --epochs 3 --batch-size 128 --device cuda
 ```
+
+## LeetCode 解题代码
+
+项目包含 `leetcode/` 目录，存放了一些 LeetCode 算法题的解决方案，包括：
+
+- 147. 对链表进行插入排序
+- 164. 最大间距
+- 179. 最大数
+- 200. 岛屿数量
+- 207. 课程表
+- 45. 跳跃游戏 II
+- 55. 跳跃游戏
+- 56. 合并区间
+- 57. 插入区间
+- 72. 编辑距离
+- 75. 颜色分类
+
+## 扩展建议
+
+- 新增 DL 实验时，复用 `src/common/` 中的公共能力，替换数据集与模型即可
+- 新增 RL 实验时，可继续复用 `src/rl/envs/make_env.py`
+- 如果后续要接入 `Isaac Lab`，建议在 `src/rl/envs/` 下新增独立环境工厂而不是修改现有轻量流程
+- 基于 `src/transformer/` 模块，可以扩展实现各种 Transformer 变体和应用
+
+## 环境配置
+
+项目默认复用已有的 `env_isaaclab` 环境，包含以下关键依赖：
+
+- PyTorch 2.7.0+cu128
+- TorchVision 0.22.0+cu128
+- Gymnasium
+- Stable-Baselines3
+- TensorBoard
+- 以及其他深度学习和强化学习库
+
+详细环境信息请参考 `env.md` 文件。
